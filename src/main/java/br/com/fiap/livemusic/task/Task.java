@@ -17,14 +17,14 @@ public class Task {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @NotBlank
+    @NotBlank(message = "o campo Nome da Musica é obrigatório")
     String title;
 
-    @Size(min = 10)
+    @Size(min = 10, message = "a descrição da musica deve ter pelo menos 10 caracteres")
     String description;
 
     @Min(1) @Max(100)
-    Integer music;
+    Integer score;
 
     @Min(0) @Max(100)
     Integer status;
