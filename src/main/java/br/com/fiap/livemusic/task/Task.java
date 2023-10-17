@@ -20,7 +20,7 @@ public class Task {
     @NotBlank(message = "o campo Nome da Musica é obrigatório")
     String title;
 
-    @Size(min = 10, message = "a descrição da musica deve ter pelo menos 10 caracteres")
+    @Size(min = 5, message = "a descrição da musica, para procura, deve ter pelo menos 5 caracteres")
     String description;
 
     @Min(1) @Max(100)
