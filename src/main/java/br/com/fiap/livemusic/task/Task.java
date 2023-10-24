@@ -14,13 +14,13 @@ import lombok.Data;
 @Data
 public class Task {
     
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
     Long id;
 
-    @NotBlank(message = "o campo Nome da Musica é obrigatório")
+    @NotBlank
     String title;
 
-    @Size(min = 5, message = "a descrição da musica, para procura, deve ter pelo menos 5 caracteres")
+    @Size(min = 10, message = "{music.description.size}")
     String description;
 
     @Min(1) @Max(100)
