@@ -1,52 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveMusic Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
-</head>
+<head th:replace="~{_template::head('musicas')}"></head>
 
-<body class="grey lighten-2">
+<body class="grey lighten-3">
 
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">LiveMusic</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/task" th:text="#{task.pending}"></a></li>
-                <li><a href="#" th:text="#{task.done}"></a></li>
-                <li><a href="#" th:text="#{users}"></a></li>
-                <li>
-                    <!-- Dropdown Trigger -->
-                    <a class='dropdown-trigger' href='#' data-target='dropdown1'>
-                        <img class="avatar" th:src="${avatar_url}" alt="">
-                    </a>
+    <nav th:replace="~{_template::#navbar}"></nav>
 
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown1' class='dropdown-content'>
-                        <li><span th:text="${username}"></span></li>
-                        <li class="divider" tabindex="-1"></li>
-                        <li><a href="/logout"><i class="material-icons">logout</i>sair</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div class="container">
 
-    <main class="container">
-        <span class="card-panel teal accent-3" th:if="${success}" th:text="${success}"></span>
-        <span class="card-panel red accent-3 white-text" th:if="${error}" th:text="${error}"></span>
+        <div class="card-panel teal accent-3" th:if="${success}" th:text="${success}"></div>
+        <div class="card-panel red darken-4 white-text" th:if="${error}" th:text="${error}"></div>
 
-        <h2>Musica que deseja adicionar a sua lista</h2>
+        <h2 th:text="#{task.pending}">Musica que deseja adicionar a sua lista</h2>
 
         <div class="row">
-            <div class="col s12 m6 l4" th:each="task : ${tasks}">
+            <div class="col s12 m6" th:each="task : ${tasks}">
                 <div class="card">
                     <div class="card-content">
+                        <img th:if="${task.user != null}" th:src="${task.user.avatarUrl}" class="avatar" alt="">
                         <div class="progress">
                             <div class="determinate" th:style="${'width:' + task.status + '%'}"></div>
                         </div>
@@ -58,31 +30,33 @@
                         <a th:href="${'/task/delete/' + task.id}" class="btn red">
                             <i class="material-icons">delete</i>
                         </a>
+                        <a th:if="${task.status > 0}" th:href="${'/task/dec/' + task.id}" class="btn" title="subtrair status">
+                            <i class="material-icons">remove</i>
+                        </a>
+                        <a th:if="${task.status != 100}" th:href="${'/task/inc/' + task.id}" class="btn" title="somar status">
+                            <i class="material-icons">add</i>
+                        </a>
+                        <a th:if="${task.user == null}" th:href="${'/task/catch/' + task.id}" class="btn purple" title="pegar tarefa">
+                            <i class="material-icons">pan_tool</i>
+                        </a>
+                        <a th:if="${task.user != null}" th:href="${'/task/drop/' + task.id}" class="btn amber" title="largar tarefa">
+                            <i class="material-icons">do_not_touch</i>
+                        </a>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="fixed-action-btn">
-            <a href="/task/new" class="btn-floating btn-large blue">
-                <i class="large material-icons">add</i>
-            </a>
-        </div>
-
-    </main>
+    <div class="fixed-action-btn">
+        <a href="/task/new" class="btn-floating btn-large blue" title="adicionar tarefa">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
 
 
 </body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        const options = {
-            coverTrigger: false,
-            constrainWidth: false
-        }
-        var instances = M.Dropdown.init(elems, options);
-    });
-</script>
 
 </html>

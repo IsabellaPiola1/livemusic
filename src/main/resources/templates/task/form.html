@@ -1,31 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>LiveMusic</title>
-</head>
+<head th:replace="~{_template::head('cadastrar')}"></head>
+
 
 <body class="grey lighten-3">
 
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo">Live Music</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li class="active"><a href="/task">Musicas</a></li>
-                <li><a href="#">playlist</a></li>
-                <li><a href="#">usuários</a></li>
-            </ul>
-        </div>
-    </nav>
+    <nav th:replace="~{_template::#navbar}"></nav>
 
     <div class="container">
 
-        <h2>Musicas Adicionadas na Playlist</h2>
+        <h2>Adicionar Musica</h2>
 
         <div class="card">
             <div class="card-content">
@@ -49,11 +34,11 @@
                             th:field="*{description}" 
                             th:classappend="${#fields.hasErrors('description')} ? invalid" 
                         ></textarea>
-                        <label for="description">Letra da musica</label>
+                        <label for="description">Descrição</label>
                         <span class="helper-text red-text" th:errors="*{description}"></span>
                     </div>
                 </div>
-                <label for="score">Adicionar a musica na playlist</label>
+                <label for="score">Letra da musica</label>
                 <p class="range-field">
                     <input th:field="*{score}" type="range" min="1" max="100" />
                     <span class="helper-text red-text" th:errors="*{score}"></span>
@@ -62,7 +47,7 @@
             </div>
             <div class="card-action right-align">
                 <a href="/task" class="btn grey">cancelar</a>
-                <button class="btn">cadastrar musica na playlist</button>
+                <button class="btn">cadastrar</button>
             </div>
 
             </form>
