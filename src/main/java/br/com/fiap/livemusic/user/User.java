@@ -1,9 +1,7 @@
 package br.com.fiap.livemusic.user;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -25,7 +23,8 @@ public class User {
     Integer score;
 
     public static User convert(OAuth2User githubuser){
-        return new User().builder()
+        new User();
+        return User.builder()
                 .id(Long.valueOf(githubuser.getName()))
                 .name(githubuser.getAttribute("name"))
                 .avatarUrl(githubuser.getAttribute("avatar_url"))

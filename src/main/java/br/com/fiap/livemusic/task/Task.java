@@ -29,4 +29,11 @@ public class Task {
     @Min(0) @Max(100)
     Integer status;
 
+    public Object getUser() {
+        return null;
+    }
+
+    public void setUser(Object object) {
+    }
+
 }
